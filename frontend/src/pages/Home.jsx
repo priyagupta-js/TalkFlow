@@ -212,7 +212,7 @@ export default function Home() {
 
           {/* SEARCH BAR */}
           {open && (
-            <div className="absolute top-20 left-4 bg-white shadow-md rounded w-48 p-3 z-50">
+            <div className="absolute top-15 left-4 bg-white shadow-[0_4px_22px_rgba(0,0,0,0.12)] rounded-lg w-48 p-3 z-50">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-semibold">
                   {user?.name?.[0] || "U"}
