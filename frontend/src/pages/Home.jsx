@@ -247,7 +247,9 @@ export default function Home() {
                 key={chat._id}
                 onClick={() => setActiveChat(chat)}
                 className={`p-4 cursor-pointer transition
-                  ${isActive ? "bg-purple-500 text-white" : "hover:bg-gray-100"}`}
+                  ${
+                    isActive ? "bg-purple-500 text-white" : "hover:bg-gray-100"
+                  }`}
               >
                 <div className="font-semibold">
                   {otherUser?.name || "New Chat"}
@@ -328,13 +330,22 @@ export default function Home() {
             )}
 
             {/* MESSAGE INPUT */}
-            <input
+            <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              className="flex-1 px-3 py-2 bg-gray-300 rounded-full outline-none"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.ctrlKey) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+                // Ctrl + Enter → default behavior → new line
+              }}
+              rows={1}
               placeholder="Message"
+              className="flex-1 px-3 py-2 bg-gray-100 rounded-2xl outline-none resize-none"
+              style={{ maxHeight: "120px" }}
             />
+            {/* flex-1 px-3 py-2 bg-gray-300 rounded-full outline-none" */}
 
             {/* ATTACHMENT BUTTON */}
             <button
