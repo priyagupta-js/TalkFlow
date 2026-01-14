@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Menu, MoreVertical, Send, Plus } from "lucide-react";
 import { useSocket } from "../context/SocketContext";
 import { useAuth } from "../context/AuthContext";
@@ -22,6 +22,8 @@ export default function Home() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const [chatSearch, setChatSearch] = useState("");
+
+  const textareaRef = useRef(null);
 
   /* ---------------- LOGOUT ---------------- */
   const handleLogout = async () => {
@@ -126,7 +128,14 @@ export default function Home() {
     });
 
     setMessage("");
+
+     if(textareaRef.current)
+     {
+      textareaRef.current.style.height = "auto";
+     }
   };
+
+ 
 
   /* ---------------- START CONVERSATION ---------------- */
   const startConversation = async () => {
@@ -286,7 +295,7 @@ export default function Home() {
                 }`}
               >
                 <div
-                  className={`max-w-xs px-4 py-2 rounded-2xl shadow text-sm
+                  className={`max-w-xs px-4 py-2 rounded-2xl shadow text-sm whitespace-pre-wrap
             ${
               isOwnMessage
                 ? "bg-purple-600 text-white rounded-br-none"
@@ -331,10 +340,15 @@ export default function Home() {
 
             {/* MESSAGE INPUT */}
             <textarea
+            ref={textareaRef}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onInput={(e) => {
+                e.target.style.height = "auto";
+                e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+              }}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.ctrlKey) {
+                if (e.key === "Enter" && !e.ctrlKey && !e.shiftKey) {
                   e.preventDefault();
                   sendMessage();
                 }
@@ -342,7 +356,7 @@ export default function Home() {
               }}
               rows={1}
               placeholder="Message"
-              className="flex-1 px-3 py-2 bg-gray-100 rounded-2xl outline-none resize-none"
+              className="flex-1 px-3 py-2 bg-gray-100 rounded-2xl outline-none resize-none leading-relaxed"
               style={{ maxHeight: "120px" }}
             />
             {/* flex-1 px-3 py-2 bg-gray-300 rounded-full outline-none" */}
