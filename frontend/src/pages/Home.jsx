@@ -20,8 +20,11 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-
   const [chatSearch, setChatSearch] = useState("");
+
+const [openMenuChatId, setOpenMenuChatId] = useState(null);
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [chatToDelete, setChatToDelete] = useState(null);
 
   const textareaRef = useRef(null);
 
