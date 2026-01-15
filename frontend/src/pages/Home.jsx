@@ -1,4 +1,4 @@
-Home.jsx
+Home.jsx;
 import React, { useEffect, useState, useRef } from "react";
 import { Menu, MoreVertical, Send, Plus } from "lucide-react";
 import { useSocket } from "../context/SocketContext";
@@ -133,13 +133,10 @@ export default function Home() {
 
     setMessage("");
 
-     if(textareaRef.current)
-     {
+    if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-     }
+    }
   };
-
- 
 
   /* ---------------- START CONVERSATION ---------------- */
   const startConversation = async () => {
@@ -202,16 +199,50 @@ export default function Home() {
   // if clicked outside the modal - modal closes
 
   useEffect(() => {
-  const handleClickOutside = () => {
-    setOpenMenuChatId(null);
-    setShowDeleteModal(false);
-    setChatToDelete(null);
+    const handleClickOutside = () => {
+      setOpenMenuChatId(null);
+      setShowDeleteModal(false);
+      setChatToDelete(null);
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  const confirmDeleteChat = async () => {
+    if (!chatToDelete) return;
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/api/chats/${chatToDelete._id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Delete failed");
+      }
+
+      // Remove chat from UI
+      setChats((prev) => prev.filter((c) => c._id !== chatToDelete._id));
+
+      // Reset active chat if needed
+      if (activeChat?._id === chatToDelete._id) {
+        setActiveChat(null);
+        setMessages([]);
+      }
+
+      // Close modal
+      setShowDeleteModal(false);
+      setChatToDelete(null);
+      setOpenMenuChatId(null);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete chat");
+    }
   };
-
-  document.addEventListener("click", handleClickOutside);
-  return () => document.removeEventListener("click", handleClickOutside);
-}, []);
-
 
   return (
     <div className="h-screen flex bg-gray-50">
@@ -297,36 +328,32 @@ export default function Home() {
               : "Select a chat"}
           </div>
           {activeChat && (
-  <div
-    className="relative"
-    onClick={(e) => e.stopPropagation()}
-  >
-    <MoreVertical
-      className="cursor-pointer"
-      onClick={() =>
-        setOpenMenuChatId(
-          openMenuChatId === activeChat._id ? null : activeChat._id
-        )
-      }
-    />
+            <div className="relative" onClick={(e) => e.stopPropagation()}>
+              <MoreVertical
+                className="cursor-pointer"
+                onClick={() =>
+                  setOpenMenuChatId(
+                    openMenuChatId === activeChat._id ? null : activeChat._id
+                  )
+                }
+              />
 
-    {openMenuChatId === activeChat._id && (
-      <div className="absolute right-0 mt-2 bg-white shadow rounded z-50">
-        <button
-          onClick={() => {
-            setChatToDelete(activeChat);
-            setShowDeleteModal(true);
-            setOpenMenuChatId(null);
-          }}
-          className="px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left"
-        >
-          Delete chat
-        </button>
-      </div>
-    )}
-  </div>
-)}
-
+              {openMenuChatId === activeChat._id && (
+                <div className="absolute right-0 mt-2 bg-white shadow rounded z-50">
+                  <button
+                    onClick={() => {
+                      setChatToDelete(activeChat);
+                      setShowDeleteModal(true);
+                      setOpenMenuChatId(null);
+                    }}
+                    className="px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-34 text-left"
+                  >
+                    Delete chat
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* MESSAGES */}
@@ -388,12 +415,13 @@ export default function Home() {
 
             {/* MESSAGE INPUT */}
             <textarea
-            ref={textareaRef}
+              ref={textareaRef}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onInput={(e) => {
                 e.target.style.height = "auto";
-                e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+                e.target.style.height =
+                  Math.min(e.target.scrollHeight, 120) + "px";
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.ctrlKey && !e.shiftKey) {
@@ -459,44 +487,34 @@ export default function Home() {
       )}
 
       {showDeleteModal && chatToDelete && (
-  <div
-    className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
-    onClick={() => setShowDeleteModal(false)}
-  >
-    <div
-      className="bg-white p-6 rounded-lg w-80"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <h3 className="font-semibold mb-4">
-        Delete this chat?
-      </h3>
-
-      <div className="flex justify-end gap-3">
-        <button
+        <div
+          className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
           onClick={() => setShowDeleteModal(false)}
-          className="px-4 py-2 border rounded"
         >
-          Cancel
-        </button>
+          <div
+            className="bg-white p-6 rounded-lg w-80"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="font-semibold mb-4">Delete this chat?</h3>
 
-        <button
-          onClick={() => {
-            setChats((prev) =>
-              prev.filter((c) => c._id !== chatToDelete._id)
-            );
-            setActiveChat(null);
-            setMessages([]);
-            setShowDeleteModal(false);
-          }}
-          className="px-4 py-2 bg-red-600 text-white rounded"
-        >
-          Yes
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="px-4 py-2 border rounded"
+              >
+                Cancel
+              </button>
 
+              <button
+                onClick={confirmDeleteChat}
+                className="px-4 py-2 bg-red-600 text-white rounded"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
