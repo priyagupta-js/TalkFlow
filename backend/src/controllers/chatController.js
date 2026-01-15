@@ -1,4 +1,5 @@
 const Chat = require("../models/ChatModel");
+const Message = require("../models/MessagesModel");
 const mongoose = require("mongoose");
 
 // 🔹 Get all chats for logged-in user
@@ -43,8 +44,9 @@ exports.accessChat = async (req, res) => {
       });
     }
 
-    // 🟢 CREATE NEW CHAT
-    const newChat = await Chat.create({
+    //CREATE NEW CHAT
+    const newChat = await Chat.create
+    ({
       isGroupChat: false,
       users: [loggedInUserId, selectedUserId],
     });
@@ -61,5 +63,39 @@ exports.accessChat = async (req, res) => {
   } catch (error) {
     console.error("Access chat error:", error);
     res.status(500).json({ message: "Chat access failed" });
+  }
+};
+
+
+exports.deleteChat = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+    const userId = req.userId;
+
+    // 1. Find chat
+    const chat = await Chat.findById(chatId);
+    if (!chat) {
+      return res.status(404).json({ message: "Chat not found" });
+    }
+
+    // 2. Check if user belongs to chat
+    const isMember = chat.users.some(
+      (u) => u.toString() === userId
+    );
+
+    if (!isMember) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    // 3. Delete all messages of this chat
+    await Message.deleteMany({ chat: chatId });
+
+    // 4. Delete chat itself
+    await Chat.findByIdAndDelete(chatId);
+
+    res.status(200).json({ message: "Chat deleted successfully" });
+  } catch (error) {
+    console.error("Delete chat error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
