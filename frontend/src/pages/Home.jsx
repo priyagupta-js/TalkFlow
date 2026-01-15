@@ -1,3 +1,4 @@
+Home.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { Menu, MoreVertical, Send, Plus } from "lucide-react";
 import { useSocket } from "../context/SocketContext";
@@ -22,9 +23,9 @@ export default function Home() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [chatSearch, setChatSearch] = useState("");
 
-const [openMenuChatId, setOpenMenuChatId] = useState(null);
-const [showDeleteModal, setShowDeleteModal] = useState(false);
-const [chatToDelete, setChatToDelete] = useState(null);
+  const [openMenuChatId, setOpenMenuChatId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [chatToDelete, setChatToDelete] = useState(null);
 
   const textareaRef = useRef(null);
 
@@ -198,6 +199,20 @@ const [chatToDelete, setChatToDelete] = useState(null);
     "❤️",
   ];
 
+  // if clicked outside the modal - modal closes
+
+  useEffect(() => {
+  const handleClickOutside = () => {
+    setOpenMenuChatId(null);
+    setShowDeleteModal(false);
+    setChatToDelete(null);
+  };
+
+  document.addEventListener("click", handleClickOutside);
+  return () => document.removeEventListener("click", handleClickOutside);
+}, []);
+
+
   return (
     <div className="h-screen flex bg-gray-50">
       {/* LEFT SIDEBAR */}
@@ -258,7 +273,7 @@ const [chatToDelete, setChatToDelete] = useState(null);
               <div
                 key={chat._id}
                 onClick={() => setActiveChat(chat)}
-                className={`p-4 cursor-pointer transition
+                className={`p-4 cursor-pointer transition 
                   ${
                     isActive ? "bg-purple-500 text-white" : "hover:bg-gray-100"
                   }`}
@@ -281,7 +296,37 @@ const [chatToDelete, setChatToDelete] = useState(null);
               ? getOtherUser(activeChat)?.name || "Chat"
               : "Select a chat"}
           </div>
-          <MoreVertical />
+          {activeChat && (
+  <div
+    className="relative"
+    onClick={(e) => e.stopPropagation()}
+  >
+    <MoreVertical
+      className="cursor-pointer"
+      onClick={() =>
+        setOpenMenuChatId(
+          openMenuChatId === activeChat._id ? null : activeChat._id
+        )
+      }
+    />
+
+    {openMenuChatId === activeChat._id && (
+      <div className="absolute right-0 mt-2 bg-white shadow rounded z-50">
+        <button
+          onClick={() => {
+            setChatToDelete(activeChat);
+            setShowDeleteModal(true);
+            setOpenMenuChatId(null);
+          }}
+          className="px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left"
+        >
+          Delete chat
+        </button>
+      </div>
+    )}
+  </div>
+)}
+
         </div>
 
         {/* MESSAGES */}
@@ -412,6 +457,46 @@ const [chatToDelete, setChatToDelete] = useState(null);
           </div>
         </div>
       )}
+
+      {showDeleteModal && chatToDelete && (
+  <div
+    className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+    onClick={() => setShowDeleteModal(false)}
+  >
+    <div
+      className="bg-white p-6 rounded-lg w-80"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h3 className="font-semibold mb-4">
+        Delete this chat?
+      </h3>
+
+      <div className="flex justify-end gap-3">
+        <button
+          onClick={() => setShowDeleteModal(false)}
+          className="px-4 py-2 border rounded"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={() => {
+            setChats((prev) =>
+              prev.filter((c) => c._id !== chatToDelete._id)
+            );
+            setActiveChat(null);
+            setMessages([]);
+            setShowDeleteModal(false);
+          }}
+          className="px-4 py-2 bg-red-600 text-white rounded"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
