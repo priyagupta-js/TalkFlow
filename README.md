@@ -1,75 +1,151 @@
-TalkFlow — Real-Time Chat Application
+# TalkFlow — Real-Time Chat Application
 
-TalkFlow is a modern, real-time one-to-one chat application inspired by WhatsApp / Telegram, built using the MERN stack with Socket.IO for live messaging.
-It supports authentication, real-time messaging, emoji support, chat deletion, and responsive UI.
+TalkFlow is a modern, real-time one-to-one chat application.
+It is built using the MERN stack.
 
-🚀 Live Demo
+---
 
-Frontend (Vercel)
-👉 https://talkflow-frontend.vercel.app
+## Live Demo
 
-Backend API (Render)
-👉 https://talkflow-backend-je72.onrender.com
+- **Frontend**  
+ [TalkFlow Live App](https://talkflow-frontend.vercel.app) 
 
-🧠 Key Features
+---
 
-🔐 JWT Authentication (secure HTTP-only cookies)
+## Features
 
-💬 Real-time messaging using Socket.IO
+- JWT Authentication (HTTP-only cookies)
+- Real-time messaging using Socket.IO
+- One-to-one chats
+- Search chats by username
+- Emoji picker
+- Multiline messages  
+- Delete chat with confirmation
+- Responsive UI
+- Fast Vite + React frontend
 
-🧑‍🤝‍🧑 One-to-one chats
+---
 
-🔍 Search chats by username
+## Tech Stack
 
-😊 Emoji picker
+### Frontend
+- React (Vite)
+- Tailwind CSS
+- Socket.IO Client
+- Lucide Icons
+- React Router DOM
 
-⌨️ Multiline messages
+### Backend
+- Node.js
+- Express.js
+- MongoDB (Atlas)
+- Mongoose
+- Socket.IO
+- JWT Authentication
+- Cookie-based auth
 
-Enter → Send
+### Deployment
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
 
-Ctrl + Enter / Shift + Enter → New line
+---
+## Installation & Run Locally
 
-🗑️ Delete chat (with confirmation)
+Follow the steps below to run **TalkFlow** on your local machine.
 
-🔄 Persistent chats (deleted chats don’t reappear on refresh)
+---
 
-📱 Responsive UI
+### Prerequisites
 
-⚡ Fast Vite + React frontend
+Make sure you have the following installed:
 
-🛠️ Tech Stack
-Frontend
+- **Node.js** (v18 or later)
+- **npm** or **yarn**
+- **MongoDB** (local or MongoDB Atlas)
+- **Git**
 
-React (Vite)
+---
 
-Tailwind CSS
+###  Clone the Repository
 
-Socket.IO Client
+```bash
+git clone https://github.com/<your-username>/talkflow.git
+cd talkflow
 
-Lucide Icons
 
-React Router DOM
+### Backend Setup
 
-Backend
+``` bash
+cd backend
+npm install
+```
 
-Node.js
+---
+## Backend Environment Variables
 
-Express.js
 
-MongoDB (Atlas)
+# Create a .env file inside the backend folder:
 
-Mongoose
+``` bash
+PORT=5000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/talkflow
+JWT_SECRET=your_jwt_secret_key
+CLIENT_ORIGIN=http://localhost:5173
+NODE_ENV=development
 
-Socket.IO
+```
+# Make sure to replace <username>, <password>, and secrets with your own values.
 
-JWT Authentication
+## Run Backend Server
+``` bash
+npm run dev
+```
 
-Cookie-based auth
+## Backend will start at: http://localhost:5000
 
-Deployment
+## Frontend Setup
+```bash
+cd ../frontend
+npm install
+```
 
-Frontend: Vercel
+## Frontend Environment Variables
 
-Backend: Render
+# Create a .env file inside the frontend folder:
 
-Database: MongoDB Atlas
+```bash
+VITE_BACKEND_API=http://localhost:5000
+```
+
+## Run Frontend App
+``` bash
+npm run dev
+```
+
+## Frontend will start at: http://localhost:5173
+
+## Future Enhancements
+
+- Group chats
+- Typing indicators
+- Message read receipts
+- File & media sharing
+- Online/offline user status
+- Push notifications
+
+---
+
+## Author
+
+**Priya Gupta**  
+Full-Stack Developer  
+
+GitHub: https://github.com/priyagupta-js  
+LinkedIn: https://www.linkedin.com/in/priyagupta-js/
+
+---
+
+## Support
+
+If you like this project, please give it a ⭐ on GitHub — it helps a lot!
