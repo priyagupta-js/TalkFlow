@@ -24,6 +24,7 @@ const io = new Server(server, {
     origin: process.env.CLIENT_ORIGIN,
     credentials: true,
   },
+  transports: ["websocket", "polling"],
 });
 
 // accept JSON bodies from React
@@ -42,6 +43,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chats",chatRoutes);
 app.use("/api/messages",messageRoutes);
+
+
 io.use((socket, next) => {
   try {
     const cookie = socket.handshake.headers.cookie;
