@@ -9,7 +9,7 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    // 🚫 No user → no socket
+    // No user → no socket
     if (!user) {
       if (socket) {
         socket.disconnect();
@@ -18,7 +18,7 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    // ✅ Create socket ONCE when user becomes available
+    // Create socket ONCE when user becomes available
     const newSocket = io(import.meta.env.VITE_BACKEND_API, {
       withCredentials: true,
       transports: ["websocket"], // optional but stabilizes
@@ -26,7 +26,7 @@ export const SocketProvider = ({ children }) => {
 
     setSocket(newSocket);
 
-    // ✅ Cleanup runs ONLY when user changes or component unmounts
+    // Cleanup runs ONLY when user changes or component unmounts
     return () => {
       newSocket.disconnect();
     };

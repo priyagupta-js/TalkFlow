@@ -319,7 +319,7 @@ const Signup = () => {
         <div className="text-center space-y-2">
           <h2 className="text-3xl font-bold text-foreground">Create Account</h2>
           <p className="text-muted-foreground">
-            Join Time-Talk and start chatting
+            Join TalkFlow and start chatting
           </p>
         </div>
 

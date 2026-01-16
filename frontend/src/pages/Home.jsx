@@ -86,8 +86,14 @@ export default function Home() {
     fetch(`${import.meta.env.VITE_BACKEND_API}/api/chats`, {
       credentials: "include",
     })
-      .then((res) => res.json())
-      .then(setChats)
+      .then((res) => {
+    if (res.status === 401) {
+      navigate("/login");
+      return [];
+    }
+    return res.json();
+  })
+       .then((data) => setChats(Array.isArray(data) ? data : []))
       .catch(() => setChats([]));
   }, []);
 
