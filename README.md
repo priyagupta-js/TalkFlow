@@ -52,7 +52,7 @@ It is built using the MERN stack.
 ---
 ## Installation & Run Locally
 
-Follow the steps below to run **TalkFlow** on your local machine.
+Follow the steps below to run **TalkFlow** on your local desktop.
 
 ---
 
