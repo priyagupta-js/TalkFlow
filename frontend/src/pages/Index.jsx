@@ -15,7 +15,7 @@ const Index = () => {
           {/* Heading */}
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-              Welcome to <span className="text-primary">TalkFlow</span>
+              Welcome to <span className="text-primary">Talk-Flow</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground">
               Connect with friends and family. Simple, fast, and fun messaging
