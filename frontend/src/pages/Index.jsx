@@ -22,7 +22,7 @@ const Index = () => {
               for everyone!
             </p>
           </div>
-
+    
           {/* Features */}
           <div className="flex flex-wrap justify-center gap-6 py-4">
             <div className="flex items-center gap-2 text-muted-foreground">
