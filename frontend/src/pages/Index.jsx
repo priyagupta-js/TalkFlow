@@ -28,7 +28,7 @@ const Index = () => {
             <div className="flex items-center gap-2 text-muted-foreground">
               <Users className="w-5 h-5 text-orange-500" />
               <span>Group Chats</span>
-            </div>
+            </div> 
             <div className="flex items-center gap-2 text-muted-foreground">
               <Shield className="w-5 h-5 text-green-500" />
               <span>Safe & Secure</span>
@@ -44,14 +44,14 @@ const Index = () => {
             <Link to="/signup">
               <button
                 className="
-    w-full sm:w-auto 
-    h-14 px-8 
-    text-lg font-semibold 
-    rounded-xl 
-    bg-linear-to-br from-purple-400 to-blue-500 
-    text-white 
-    shadow-lg 
-    transition-all duration-200 
+                          w-full sm:w-auto 
+                          h-14 px-8 
+                          text-lg font-semibold 
+                          rounded-xl 
+                          bg-linear-to-br from-purple-400 to-blue-500 
+                          text-white 
+                          shadow-lg 
+                          transition-all duration-200 
     hover:bg-orange-600 
     hover:shadow-xl 
     active:scale-95
