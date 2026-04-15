@@ -11,7 +11,6 @@ const Index = () => {
           <div className="mx-auto w-20 h-20  bg-linear-to-br from-purple-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-xl animate-float">
             <MessageCircle className="w-10 h-10 text-white" />
           </div>
-
           {/* Heading */}
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground">
@@ -22,7 +21,6 @@ const Index = () => {
               for everyone!
             </p>
           </div>
-    
           {/* Features */}
           <div className="flex flex-wrap justify-center gap-6 py-4">
             <div className="flex items-center gap-2 text-muted-foreground">
