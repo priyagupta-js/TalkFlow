@@ -20,7 +20,7 @@ const Index = () => {
               Connect with friends and family. Simple, fast, and fun messaging
               for everyone!
             </p>
-          </div>
+          </div>   
           {/* Features */}
           <div className="flex flex-wrap justify-center gap-6 py-4">
             <div className="flex items-center gap-2 text-muted-foreground">
