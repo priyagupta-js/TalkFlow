@@ -26,7 +26,7 @@ const Index = () => {
             <div className="flex items-center gap-2 text-muted-foreground">
               <Users className="w-5 h-5 text-orange-500" />
               <span>Group Chats</span>
-            </div> 
+            </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Shield className="w-5 h-5 text-green-500" />
               <span>Safe & Secure</span>
