@@ -34,7 +34,7 @@ const Index = () => {
             <div className="flex items-center gap-2 text-muted-foreground">
               <MessageCircle className="w-5 h-5 text-secondary-foreground" />
               <span>Easy to Use</span>
-            </div>  
+            </div>
           </div>
 
           {/* CTA Buttons */}
