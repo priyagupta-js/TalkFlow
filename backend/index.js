@@ -13,7 +13,7 @@ const Message = require("./src/models/MessagesModel");
 const userRoutes = require("./src/routes/userRoutes");
 const chatRoutes = require("./src/routes/chatRoutes.js");
 const messageRoutes = require("./src/routes/messageRoutes.js");
-
+const aiRoutes = require('./src/routes/aiRoutes.js');
 
 dotenv.config();
 const app = express();
@@ -39,6 +39,7 @@ app.use(
   })
 );
 
+app.use("/ai", aiRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chats",chatRoutes);
