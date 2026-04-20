@@ -38,8 +38,7 @@ It is built using the MERN stack.
 ### Backend
 - Node.js
 - Express.js
-- MongoDB (Atlas)
-- Mongoose
+- MongoDB
 - Socket.IO
 - JWT Authentication
 - Cookie-based auth
@@ -76,7 +75,6 @@ cd talkflow
 
 ### Backend Setup
 
-``` bash
 cd backend
 npm install
 ```
@@ -93,6 +91,7 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/talkflow
 JWT_SECRET=your_jwt_secret_key
 CLIENT_ORIGIN=http://localhost:5173
 NODE_ENV=development
+GEMINI_API_KEY=api_key
 
 ```
 # Make sure to replace <username>, <password>, and secrets with your own values.
