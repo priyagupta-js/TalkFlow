@@ -38,7 +38,7 @@ app.use(
     credentials:true
   })
 );
-
+// app.use("/")
 app.use("/ai", aiRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
