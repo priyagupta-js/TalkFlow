@@ -87,7 +87,7 @@ export default function AIChatWindow() {
         ...prev,
         {
           role: "assistant",
-          content: "⚠️ Something went wrong. Please try again.",
+          content: "Something went wrong. Please try again.",
           id: Date.now() + 1,
         },
       ]);
