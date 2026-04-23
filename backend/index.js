@@ -127,7 +127,6 @@ app.get("/",(req,res) =>
   res.send("Auth API is running"));
 
 const PORT = process.env.PORT || 5000;
-
 // start server only after DB connects
 connectDB().then(() => {
   server.listen(PORT, () => {
