@@ -1,4 +1,6 @@
 const { generateAIResponse } = require("../aiServices");
+const { generateSuggestions } = require("../aiService"); 
+
 
 const handleAIChat = async (req, res) => {
   try {
@@ -25,4 +27,31 @@ const handleAIChat = async (req, res) => {
   }
 };
 
-module.exports = { handleAIChat };
+
+
+const handleAISuggestions = async (req, res) => {
+  try {
+    const { message } = req.body;
+
+    if (!message) {
+      return res.status(400).json({
+        error: "Message is required",
+      });
+    }
+
+    const suggestions = await generateSuggestions(message);
+
+    return res.status(200).json({
+      suggestions,
+    });
+
+  } catch (error) {
+    console.error("Error in AI Suggestions:", error);
+
+    return res.status(500).json({
+      error: "Failed to get suggestions",
+    });
+  }
+};
+
+module.exports = { handleAIChat , handleAISuggestions};
