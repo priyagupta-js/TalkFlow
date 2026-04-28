@@ -1,5 +1,5 @@
 const { generateAIResponse } = require("../aiServices");
-const { generateSuggestions } = require("../aiService"); 
+const { generateSuggestions } = require("../aiServices"); 
 
 
 const handleAIChat = async (req, res) => {
