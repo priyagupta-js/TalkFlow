@@ -21,14 +21,12 @@ const signup = async (req, res) => {
         .json({ message: "Username or email already exists" });
     }
     const passwordHash = await hashPassword(password);
-
     await User.create({
       name,
       username,
       email,
       passwordHash,
     });
-
     res.status(201).json({ message: "Signup successful" });
   } catch (error) {
     res.status(500).json({ message: "Signup failed" });
