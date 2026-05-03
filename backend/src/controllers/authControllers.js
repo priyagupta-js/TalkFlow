@@ -29,7 +29,6 @@ const signup = async (req, res) => {
     res.status(500).json({ message: "Signup failed" });
   }
 };
-
 /* LOGIN */
 const login = async (req, res) => {
   try {
