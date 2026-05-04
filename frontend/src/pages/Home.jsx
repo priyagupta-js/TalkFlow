@@ -250,13 +250,12 @@ export default function Home() {
             </div>
           )}
         </div>
-
         {/* ── AI CHAT ROW (always pinned at top) ── */}
         <div
           onClick={openAIChat}
           className={`flex items-center gap-3 px-4 py-3 cursor-pointer border-b border-gray-100 transition
             ${isAIChatActive ? "bg-purple-500 text-white" : "hover:bg-gray-100"}`}
-        >
+            >
           {/* AI avatar */}
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 shadow
@@ -282,7 +281,6 @@ export default function Home() {
             AI
           </span>
         </div>
-
         {/* ── HUMAN CHAT LIST ── */}
         <div className="flex-1 overflow-y-auto">
           {filteredChats.length === 0 ? (
