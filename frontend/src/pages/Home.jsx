@@ -229,7 +229,6 @@ export default function Home() {
               <Plus />
             </button>
           </div>
-
           {/* PROFILE DROPDOWN */}
           {open && (
             <div className="absolute top-15 left-4 bg-white shadow-[0_4px_22px_rgba(0,0,0,0.12)] rounded-lg w-48 p-3 z-50">
