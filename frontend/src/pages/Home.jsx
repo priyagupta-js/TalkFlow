@@ -224,8 +224,7 @@ export default function Home() {
             />
             <button
               onClick={() => setShowStartChat(true)}
-              className="text-sm text-purple-600 font-medium"
-            >
+              className="text-sm text-purple-600 font-medium">
               <Plus />
             </button>
           </div>
