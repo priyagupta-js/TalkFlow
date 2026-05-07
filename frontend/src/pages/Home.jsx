@@ -205,7 +205,6 @@ export default function Home() {
 
   // Should we show the AI chat window?
   const showAIWindow = isAIChatActive;
-
   return (
     <div className="h-screen flex bg-gray-50">
       {/* ─────────────── LEFT SIDEBAR ─────────────── */}
