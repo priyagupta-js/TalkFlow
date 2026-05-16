@@ -158,7 +158,6 @@ export default function Home() {
     "😀","😄","😁","😂","🤣","😊","😍","😘","😎",
     "🥳","😢","😭","😡","👍","👎","🙏","🔥","❤️",
   ];
-
   useEffect(() => {
     const handleClickOutside = () => {
       setOpenMenuChatId(null);
