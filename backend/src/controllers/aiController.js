@@ -11,7 +11,6 @@ const handleAIChat = async (req, res) => {
         error: "Message is required",
       });
     }
-
     const aiReply = await generateAIResponse(message);
 
     return res.status(200).json({
