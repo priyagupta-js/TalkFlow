@@ -1,7 +1,6 @@
 const { generateAIResponse } = require("../aiServices");
 const { generateSuggestions } = require("../aiServices"); 
 
-
 const handleAIChat = async (req, res) => {
   try {
     const { message } = req.body;
